@@ -15,6 +15,7 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 - Private methods go at the end of their file, after the exported ones.
 - A helper used once or twice for a line or two is inlined at its call sites.
 - Code lives in the file of the type it belongs to, even when only one feature uses it.
+- One assignment per line: `k.graph.kernel = k` then `k.combiner.kernel = k`, not `k.graph.kernel, k.combiner.kernel = k, k`. The results of one call stay together: `slot, ok := q.Pop()`.
 
 ## Tests
 

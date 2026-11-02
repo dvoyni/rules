@@ -10,6 +10,8 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 | `init` / `destroy` | Bring up and tear down something that already exists. A failed `init` destroys what it already initialized, in reverse order. `Start` / `Stop` run between them. |
 | `acquire*` / `release*` | Hand out an item from a pool, or a fresh one when the pool is empty, and give it back: `Pool.Acquire` / `Pool.Release`. |
 
+- A file name is the type or concept it holds, in lowercase words run together: `indextable.go`, not `index_table.go`. An underscore only separates a suffix Go or the project gives meaning: `_test`, `_gen`, or a build tag such as `_windows` or `_debug`.
+
 ## Code
 
 - Private methods go at the end of their file, after the exported ones.

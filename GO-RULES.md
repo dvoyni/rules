@@ -24,3 +24,5 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 - A test of concurrent behaviour runs under `go test -race`, and is checked by breaking the code it guards and seeing it fail.
 
 ## Potential rules
+
+- A feature that spans several types lives in its own file, their methods for it included, instead of spread across their files: Save, Load and the Ref and keyed-map methods they use are in `serialization.go`. (Taught when serialization was first spread over `world.go`, `refs.go` and `entity.go`; it narrows "Code lives in the file of the type it belongs to".)

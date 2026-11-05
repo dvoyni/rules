@@ -25,6 +25,7 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 
 ## Potential rules
 
+- A failure that does not depend on the call's arguments returns its sentinel error as it is, not wrapped with the operation and the name: a write with no writable filesystem bound returns `platform.ErrNoWriteFS`, not `&fs.PathError{Op: "write", Path: name, Err: ErrNoWriteFS}` through a helper. (Taught when platform's writes wrapped `ErrNoWriteFS` through a `layer(operation, name)` helper.)
 - In a file of several types, each type's methods follow its declaration, its exported methods before its private ones, and a method lives in its own type's file: `Kernel.resolveSockets` is in `kernel.go`, not `socket.go`. (Taught when `socket[T]`'s methods sat apart from it in kernel's `socket.go`, and `resolveSockets` was left there; it narrows "Private methods go at the end of their file".)
 - Each type is declared on its own, with its own comment, never grouped in a `type ( ... )` block. (Taught when `exclusiveBinding` and `bindings` were declared in one block in kernel's `socket.go`.)
 - A feature that spans several types lives in its own file, their methods for it included, instead of spread across their files: Save, Load and the Ref and keyed-map methods they use are in `serialization.go`. (Taught when serialization was first spread over `world.go`, `refs.go` and `entity.go`; it narrows "Code lives in the file of the type it belongs to".)

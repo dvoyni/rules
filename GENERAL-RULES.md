@@ -15,3 +15,4 @@
 ## Potential rules
 
 - Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later. (Taught when the macOS Objective-C ticket was closed as out of scope on the gogpu loop map.)
+- A context's glossary is written while its design is mapped, even before its module exists: create `<module>/CONTEXT.md` and its line in `CONTEXT-MAP.md` as soon as a term is settled. (Taught when the system filesystem terms were left in a ticket comment because the `system` module had no directory yet.)

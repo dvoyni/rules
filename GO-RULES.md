@@ -11,6 +11,7 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 | `acquire*` / `release*` | Hand out an item from a pool, or a fresh one when the pool is empty, and give it back: `Pool.Acquire` / `Pool.Release`. |
 
 - A file name is the type or concept it holds, in lowercase words run together: `indextable.go`, not `index_table.go`. An underscore only separates a suffix Go or the project gives meaning: `_test`, `_gen`, or a build tag such as `_windows` or `_debug`.
+- A bitmask type is named `<Name>Flags`, and each of its bits `<Name>Flag<Bit>`: `FeatureFlags` holds `FeatureFlagDepthClipControl`, `BufferUsageFlags` holds `BufferUsageFlagCopyDst`. A type whose values are exclusive is an enum and keeps a plain name: `CullMode`, `CullModeBack`.
 
 ## Code
 
@@ -29,3 +30,4 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 - In a file of several types, each type's methods follow its declaration, its exported methods before its private ones, and a method lives in its own type's file: `Kernel.resolveSockets` is in `kernel.go`, not `socket.go`. (Taught when `socket[T]`'s methods sat apart from it in kernel's `socket.go`, and `resolveSockets` was left there; it narrows "Private methods go at the end of their file".)
 - Each type is declared on its own, with its own comment, never grouped in a `type ( ... )` block. (Taught when `exclusiveBinding` and `bindings` were declared in one block in kernel's `socket.go`.)
 - A feature that spans several types lives in its own file, their methods for it included, instead of spread across their files: Save, Load and the Ref and keyed-map methods they use are in `serialization.go`. (Taught when serialization was first spread over `world.go`, `refs.go` and `entity.go`; it narrows "Code lives in the file of the type it belongs to".)
+- Types that share the same fields and methods embed one private type holding them, instead of each repeating them: gfx's `Buffer`, `Texture` and the other handles are `struct{ handle }`, with `Index()` declared once on `handle`. (Taught when gfx's eleven handles each declared `struct{ index, generation uint32 }` and their own `Index()`.)

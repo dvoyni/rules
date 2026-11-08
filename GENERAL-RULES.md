@@ -12,6 +12,7 @@
 - Implement exactly what was asked. Anything beyond it is offered, not done.
 - A question gets a direct answer. Change code only when asked to.
 - A pull request is opened only after the user has approved its text: title and description, shown in full first.
+- A ticket's size budget, such as about 200 changed lines, is a recommendation: a feature that needs more may take more, but tickets are kept as granular as the work allows.
 
 ## Potential rules
 

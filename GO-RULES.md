@@ -19,6 +19,7 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 - A helper used once or twice for a line or two is inlined at its call sites.
 - Code lives in the file of the type it belongs to, even when only one feature uses it.
 - One assignment per line: `k.graph.kernel = k` then `k.combiner.kernel = k`, not `k.graph.kernel, k.combiner.kernel = k, k`. The results of one call stay together: `slot, ok := q.Pop()`.
+- When the toolchain is Go 1.27 or later, a generic operation on a type is a method with its own type parameters, not a package function taking the value as an argument: World access is `access.ReadCollection[Body]()`, not `world.Read[Body](access)`. Check the module's Go version before shaping an API around a limitation of older Go.
 
 ## Tests
 

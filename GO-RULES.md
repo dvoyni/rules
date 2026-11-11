@@ -28,6 +28,8 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 
 ## Potential rules
 
+- Constants that describe one encoding are declared together in one `const` block, beside the type they encode, even when another file is where one of them gets used: gtb's `freeSlotGenerationBit` sits with `slotBitCount`, `slotMask` and `generationMask` in `id.go`, not alone in `entityset.go`. (Taught when `freeSlotGenerationBit` was declared on its own in `entityset.go`.)
+- A type's constructor follows its declaration, before the type's methods, even a private constructor: gtb's `newCollection` comes right after the `Collection` struct, as `NewWorld` follows `World`, not at the end of `collection.go` with the private methods. (Taught when `newCollection` sat at the end of `collection.go`.)
 - A failure that does not depend on the call's arguments returns its sentinel error as it is, not wrapped with the operation and the name: a write with no writable filesystem bound returns `platform.ErrNoWriteFS`, not `&fs.PathError{Op: "write", Path: name, Err: ErrNoWriteFS}` through a helper. (Taught when platform's writes wrapped `ErrNoWriteFS` through a `layer(operation, name)` helper.)
 - A second type that grows its own set of methods in a file moves to a file of its own, named after it: gtb's `CollectionView`, with its nine methods and the `AnyCollectionView` every one of them is, is in `collectionview.go`, beside `Collection` in `collection.go`. (Taught when `CollectionView` grew the snapshot's read methods inside `collection.go`.)
 - Each type is declared on its own, with its own comment, never grouped in a `type ( ... )` block. (Taught when `exclusiveBinding` and `bindings` were declared in one block in kernel's `socket.go`.)

@@ -2,10 +2,10 @@
 
 ## Naming
 
-- Identifiers are full words: `pinnedToMainThread`, not `pinned`; `configurator`, not `cfg`.
-- Type names are singular: `dispatcher`, not `eventHandlers`.
-- A name says what the thing is, holds or counts, not how it is built or a bare word near it: `nextFreshIndex`, `freeEntities`, `reservationCount`, `indexTable`, not `fresh`, `free`, `reserved`, `pages`.
-- A function or method name starts with a verb, and names what it acts on when more than one thing could take the same verb: `ElevateFileAccess`, not `Writable`. A getter is the exception, named for what it answers: `Size()`, `Entry(window)`.
+- Identifiers are full words: `shippingAddress`, not `shipAddr`; `configuration`, not `cfg`.
+- Type names are singular: `catalog`, not `products`.
+- A name says what the thing is, holds or counts, not how it is built or a bare word near it: `nextInvoiceNumber`, `idleWorkers`, `pendingRefundCount`, `priceTable`, not `next`, `idle`, `pending`, `chunks`.
+- A function or method name starts with a verb, and names what it acts on when more than one thing could take the same verb: `GrantEditAccess`, not `Editable`. A getter is the exception, named for what it answers: `Total()`, `Line(number)`.
 
 ## Work
 
@@ -17,16 +17,16 @@
 
 ## Potential rules
 
-- Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later. (Taught when the macOS Objective-C ticket was closed as out of scope on the gogpu loop map.)
-- A new method takes its name from its neighbours in the same API, not from another library's term: `SetCursorPosition` beside `SetCursor` and `SetCursorMode`, not `WarpCursor` after SDL's `SDL_WarpMouseInWindow`. (Taught when gogpu's cursor move was first named `WarpCursor`.)
-- Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line. (Taught when the gogpu cursor-warp PR draft ended with "🤖 Generated with Claude Code".)
-- A context's glossary is written while its design is mapped, even before its module exists: create `<module>/CONTEXT.md` and its line in `CONTEXT-MAP.md` as soon as a term is settled. (Taught when the system filesystem terms were left in a ticket comment because the `system` module had no directory yet.)
-- A new name doesn't reuse a term the project already gives another meaning: the generator's set of marked structs is `Catalog`, not `Model`, which names the game state; the World's per-entity-type container is a `Collection`, not a `Storage`, which names the Storage Service. (Taught when the generator's `Model` was renamed `Catalog` in gtb.)
-- A name for an in-memory runtime structure doesn't borrow database words: the World's per-entity-type container is a `Collection`, not a `Table`, `Store` or `Repository`. (Taught when `Table` was proposed for it in gtb.)
-- An exclusion covers only the kind of thing the user named; when it lands on a list that mixes kinds, split the list and say back which part goes: "no metrics in M1" for a panic entry's diagnostics moved out the process and host figures, not the build or the World's own counts. (Taught when every panic diagnostic was deferred to M2 in gtb.)
-- A conversion is no getter: a function that builds one type's value from another's starts with a verb, `makeImageCopyTexture`, not `imageCopyTexture`, and neighbours that break a rule set no precedent for new code. (Taught when gogpu's `imageCopyTexture` and `bufferTextureCopies` passed check-rules because `stencilFaceState` and `blendComponent` beside them were named the same way.)
-- A name a spec or design sketch gives still follows the naming rules when it is built: a function that only makes a tick list entry is `world.MakeSystemStep`, a constructor, not the spec's `world.Update`, which updates nothing. (Taught when gtb's tick list entry was first built as the spec's `world.Update`.)
-- A precondition a doc comment states is checked in code wherever the code can check it, with a panic or error that names the broken condition, not left to the comment: gtb's `World.SetResource` says "before Start", so it panics after `Start`. (Taught when `SetResource` documented "before Start" and checked nothing.)
-- A doc comment says what an API does in general, and names the caller that motivated it only as an example: gtb's `Collection.UpdateAll` "gives write raw access to the collection", and code in C such as the physics step is one writer, not "UpdateAll is for writes made in C". (Taught when `UpdateAll`'s comment opened with "is for writes made in C".)
-- A check the user performs by hand is given as numbered steps, each saying what to do and what should appear, and whatever it opens waits long enough to read them first: "1. Click inside the window. 2. Type `'` then `e`: one `é` should appear", with the window opening 20 seconds later. (Taught when the user, unsure they had done the first keyboard hand check of gogpu's keys and repeats right, asked for what to do as text.)
-- A code generator emits only what follows from its input; code that is the same whatever the input is written by hand, in a package of its own, and a check that must cover it, such as a protocol hash, reads its source: gtb's bit stream is `bitstream` and `Gtb.Core.BitStream`, written by hand, not emitted from templates into the generated `wire` package. (Taught when gtb's bit stream was first emitted from templates so that the protocol hash would cover it.)
+- Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later.
+- A new method takes its name from its neighbours in the same API, not from another library's term: `SetFontSize` beside `SetFont` and `SetFontColor`, not `ScaleText` after another toolkit's `tk_scale_text`.
+- Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line.
+- A context's glossary is written while its design is mapped, even before its module exists: create `<module>/CONTEXT.md` and its line in `CONTEXT-MAP.md` as soon as a term is settled.
+- A new name doesn't reuse a term the project already gives another meaning: the scheduler's list of waiting jobs is a `Backlog`, not a `Queue`, which names the message queue.
+- A name for an in-memory runtime structure doesn't borrow database words: the rate limiter's per-client container is a `Bucket`, not a `Table`, `Store` or `Repository`.
+- An exclusion covers only the kind of thing the user named; when it lands on a list that mixes kinds, split the list and say back which part goes: "no metrics in v1" for a crash report's fields moved out the CPU and memory figures, not the build number or the stack trace.
+- A conversion is no getter: a function that builds one type's value from another's starts with a verb, `makeShippingLabel`, not `shippingLabel`, and neighbours that break a rule set no precedent for new code.
+- A name a spec or design sketch gives still follows the naming rules when it is built: a function that only makes a scheduled job is `billing.MakeNightlyJob`, a constructor, not the sketch's `billing.Run`, which runs nothing.
+- A precondition a doc comment states is checked in code wherever the code can check it, with a panic or error that names the broken condition, not left to the comment: `Server.AddRoute` says "before Listen", so it panics after `Listen`.
+- A doc comment says what an API does in general, and names the caller that motivated it only as an example: `Cache.Freeze` "holds every writer off while the caller reads", and the nightly backup is one such caller, not "Freeze is for the backup".
+- A check the user performs by hand is given as numbered steps, each saying what to do and what should appear, and whatever it opens waits long enough to read them first: "1. Open the settings page. 2. Switch the language to French: the File menu should read `Fichier`", with the page opening 20 seconds later.
+- A code generator emits only what follows from its input; code that is the same whatever the input is written by hand, in a package of its own, and a check that must cover it, such as a schema hash, reads its source: the varint encoder is `varint`, written by hand, not emitted from templates into the generated `messages` package.

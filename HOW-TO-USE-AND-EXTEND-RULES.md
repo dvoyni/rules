@@ -6,12 +6,23 @@ A project's own rules live in its `AGENTS.md` files, beside the code they govern
 
 Follow every rule in every rules file the project loads. A **potential rule** is a lesson not yet confirmed: apply it, and say so to the user in your reply, naming the potential rule, so they can confirm it or drop it.
 
+## Counters
+
+A potential rule's line opens with its **counter**: `- [2] A new method takes its name from ...`. A new potential rule starts at `[1]`, as does a line without a counter. When the user answers a reply that named the rule as applied, its counter moves:
+
+- **+1** when the answer raises no objection to it. At `[5]`, promote it.
+- **-1** when the answer objects to it or states an opposing rule. At `[-5]`, delete it.
+
+When a counter promotes or deletes a rule, say so in your reply.
+
+An opposing rule is a lesson of its own: add it at `[1]` right below the rule it opposes, its text opening with `Opposes the rule above:`. Where both apply, follow the lower one. Every reply that applies or counts either names both, so the user can reshape them into one rule. When either leaves `## Potential rules`, the other drops its `Opposes the rule above:` opening.
+
 ## Extending the rules
 
 A user correcting how you worked is a **lesson**. Record every one:
 
-1. **First correction:** add it as a potential rule, one line under `## Potential rules` in the file it belongs to.
-2. **Same correction again:** promote it. Move it into the file's rules and out of `## Potential rules`.
+1. **First correction:** add it as a potential rule at `[1]`, one line under `## Potential rules` in the file it belongs to.
+2. **Same correction again:** promote it. Move it into the file's rules, without its counter, and out of `## Potential rules`.
 3. **Confirmed or dropped:** when the user confirms a potential rule you applied, promote it; when they drop it, delete it.
 
 A user stating a rule outright ("always", "from now on", "never") makes it a rule at once.

@@ -1,10 +1,5 @@
 # Rules: how to use and extend them
 
-This folder holds rules shared between projects:
-
-- `GENERAL-RULES.md`: rules for any project, in any language.
-- `<LANGUAGE>-RULES.md` (`GO-RULES.md`, ...): rules for any project in that language.
-
 A project's own rules live in its `AGENTS.md` files, beside the code they govern. Where a project rule and a shared rule disagree, the project rule wins.
 
 ## Using the rules
@@ -31,23 +26,16 @@ Write a rule as the behaviour to follow, with a short example from the code when
 
 ## Adding the rules to a project
 
-Add this repository as a git submodule named `rules` at the project root, and list the files in the root `AGENTS.md`, which every agent reads:
+Add this repository as a git submodule, at `rules/` in the lines below, and point the project's root `AGENTS.md`, which every agent reads, at this folder's:
 
 ```
-Before any work, read and follow:
-
-- rules/HOW-TO-USE-AND-EXTEND-RULES.md
-- rules/GENERAL-RULES.md
-- rules/GO-RULES.md
+Before any work, read and follow rules/AGENTS.md.
 ```
 
-List each language file the project uses, and only those.
-
-An agent that reads only its own file gets a one-line pointer beside each `AGENTS.md`. For Claude Code that is a `CLAUDE.md` holding `@AGENTS.md`, which imports it; the root one also imports the rules files themselves, so they load without being asked for:
+An agent that reads only its own file gets a one-line pointer beside each `AGENTS.md`. For Claude Code that is a `CLAUDE.md` holding `@AGENTS.md`, which imports it. The root one also imports this folder's `CLAUDE.md`, which loads the shared rules without being asked for, and may import the file of each language the project is written in:
 
 ```
 @AGENTS.md
-@rules/HOW-TO-USE-AND-EXTEND-RULES.md
-@rules/GENERAL-RULES.md
+@rules/CLAUDE.md
 @rules/GO-RULES.md
 ```

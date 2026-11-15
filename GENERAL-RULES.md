@@ -29,7 +29,7 @@
 
 - [1] Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later.
 - [2] Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line.
-- [3] A name for an in-memory runtime structure doesn't borrow database words: the rate limiter's per-client container is a `Bucket`, not a `Table`, `Store` or `Repository`.
+- [4] A name for an in-memory runtime structure doesn't borrow database words: the rate limiter's per-client container is a `Bucket`, not a `Table`, `Store` or `Repository`.
 - [1] An exclusion covers only the kind of thing the user named; when it lands on a list that mixes kinds, split the list and say back which part goes: "no metrics in v1" for a crash report's fields moved out the CPU and memory figures, not the build number or the stack trace.
 - [1] A name a spec or design sketch gives still follows the naming rules when it is built: a function that only makes a scheduled job is `billing.MakeNightlyJob`, a constructor, not the sketch's `billing.Run`, which runs nothing.
 - [3] A check the user performs by hand is given as numbered steps, each saying what to do and what should appear, and whatever it opens waits long enough to read them first: "1. Open the settings page. 2. Switch the language to French: the File menu should read `Fichier`", with the page opening 20 seconds later.

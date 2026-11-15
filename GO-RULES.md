@@ -13,6 +13,7 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 - A file name is the type or concept it holds, in lowercase words run together: `pricetable.go`, not `price_table.go`. An underscore only separates a suffix Go or the project gives meaning: `_test`, `_gen`, or a build tag such as `_windows` or `_debug`.
 - A file holding a feature's types and functions together is named for the type it is built around, not for the feature: the connection pool, `Dial`'s handler and the idle sweep are in `connpool.go`, not `connreuse.go`.
 - A bitmask type is named `<Name>Flags`, and each of its bits `<Name>Flag<Bit>`: `PermissionFlags` holds `PermissionFlagRead`, `NotifyFlags` holds `NotifyFlagEmail`. A type whose values are exclusive is an enum and keeps a plain name: `SortOrder`, `SortOrderAscending`.
+- A type's name does not repeat its package's name, as Go's own naming guidance says, since callers always read the two together: the test mail server in package `mailtest` is `mailtest.Server`, not `mailtest.MailServer`.
 
 ## Code
 
@@ -26,6 +27,7 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 - A type's constructor follows its declaration, before the type's methods, even a private constructor: `newBucket` comes right after the `bucket` struct, as `NewLimiter` follows `Limiter`, not at the end of `bucket.go` with the private methods.
 - One assignment per line: `s.reader.server = s` then `s.writer.server = s`, not `s.reader.server, s.writer.server = s, s`. The results of one call stay together: `job, ok := queue.Pop()`.
 - When the toolchain is Go 1.27 or later, a generic operation on a type is a method with its own type parameters, not a package function taking the value as an argument: a service lookup is `registry.Lookup[Printer]()`, not `services.Lookup[Printer](registry)`. Check the module's Go version before shaping an API around a limitation of older Go.
+- Types that share the same fields and methods embed one private type holding them, instead of each repeating them: `Invoice`, `Receipt` and the other documents are `struct{ document }`, with `Number()` declared once on `document`.
 
 ## Tests
 
@@ -36,10 +38,8 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 - [1] Constants that describe one encoding are declared together in one `const` block, beside the type they encode, even when another file is where one of them gets used: `compressedBit` sits with `lengthBitCount`, `lengthMask` and `versionMask` in `header.go`, not alone in `reader.go`.
 - [1] A failure that does not depend on the call's arguments returns its sentinel error as it is, not wrapped with the operation and the name: a send with no mailer configured returns `mail.ErrNoMailer`, not `&mail.SendError{Op: "send", To: address, Err: ErrNoMailer}` through a helper.
 - [3] A package's error types are collected in one file, `err.go`, not each in a file named after it, even when each has methods of its own: `quotaError` and `timeoutError`, each with its `Error` method, are in `err.go`, not in `quotaerror.go` and `timeouterror.go`.
-- [4] Types that share the same fields and methods embed one private type holding them, instead of each repeating them: `Invoice`, `Receipt` and the other documents are `struct{ document }`, with `Number()` declared once on `document`.
 - [2] A part that stands on its own, working on plain values and needing nothing else of its package, is a subpackage: the site's Markdown renderer works on text over an `fs.FS`, so it is `site/markdown`, `markdown.Render`, which a tool with no server imports, not a function beside the server.
-- [1] A type's name says what it is on its own, not leaning on its package's name to say it: a ring queue is `RingQueue`, not `Queue` in a package `ring`.
-- [4] Opposes the rule above: a type's name does not repeat its package's name, as Go's own naming guidance says, since callers always read the two together: the test mail server in package `mailtest` is `mailtest.Server`, not `mailtest.MailServer`.
+- [2] A type's name says what it is on its own, not leaning on its package's name to say it: a ring queue is `RingQueue`, not `Queue` in a package `ring`.
 - [2] A part implemented in a single file gets no package of its own, even when it stands on its own as the subpackage rule above describes: it goes beside parts of the same kind, in a package with a meaningful name, of which `common` is one choice, not the rule. The ring queue is `common.RingQueue`, not a package `ringqueue`.
 - [1] When parts of one kind need nothing of their package but a base type, that type moves down to a shared package so the parts can have a package of their own, instead of the import cycle keeping them where they are: the money types `Currency` and `TaxRate` needed only `Precision` of `billing`, so `Precision` went to `common` and the money types to `billing/money`.
 - [1] A field holding one value drawn from a bitmask keeps the `<Name>Flags` type, not an enum or an alias of its own, even though it is never more than one flag: a delivery's channel is `Delivery.Channel NotifyFlags`, holding `NotifyFlagEmail` or `NotifyFlagSMS`, as a subscription's `Channels` does, not a `NotifyChannel` beside them.

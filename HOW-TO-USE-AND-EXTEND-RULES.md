@@ -45,10 +45,4 @@ Add this repository as a git submodule, at `rules/` in the lines below, and poin
 Before any work, read and follow rules/AGENTS.md.
 ```
 
-An agent that reads only its own file gets a one-line pointer beside each `AGENTS.md`. For Claude Code that is a `CLAUDE.md` holding `@AGENTS.md`, which imports it. The root one also imports this folder's `CLAUDE.md`, which loads the shared rules without being asked for, and may import the file of each language the project is written in:
-
-```
-@AGENTS.md
-@rules/CLAUDE.md
-@rules/GO-RULES.md
-```
+The rules are agent-agnostic: they live in `AGENTS.md` files and the files those name, never in a file of one agent's own, such as a `CLAUDE.md`, not even one that only points at them.

@@ -28,6 +28,8 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 - One assignment per line: `s.reader.server = s` then `s.writer.server = s`, not `s.reader.server, s.writer.server = s, s`. The results of one call stay together: `job, ok := queue.Pop()`.
 - When the toolchain is Go 1.27 or later, a generic operation on a type is a method with its own type parameters, not a package function taking the value as an argument: a service lookup is `registry.Lookup[Printer]()`, not `services.Lookup[Printer](registry)`. Check the module's Go version before shaping an API around a limitation of older Go.
 - Types that share the same fields and methods embed one private type holding them, instead of each repeating them: `Invoice`, `Receipt` and the other documents are `struct{ document }`, with `Number()` declared once on `document`.
+- A failure that does not depend on the call's arguments returns its sentinel error as it is, not wrapped with the operation and the name: a send with no mailer configured returns `mail.ErrNoMailer`, not `&mail.SendError{Op: "send", To: address, Err: ErrNoMailer}` through a helper.
+- A package's error types are collected in one file, `err.go`, not each in a file named after it, even when each has methods of its own: `quotaError` and `timeoutError`, each with its `Error` method, are in `err.go`, not in `quotaerror.go` and `timeouterror.go`.
 
 ## Tests
 
@@ -35,11 +37,10 @@ Lifecycle verbs come in fixed pairs. Pick the pair by what the code does, and ke
 
 ## Potential rules
 
-- [3] Constants that describe one encoding are declared together in one `const` block, beside the type they encode, even when another file is where one of them gets used: `compressedBit` sits with `lengthBitCount`, `lengthMask` and `versionMask` in `header.go`, not alone in `reader.go`.
-- [4] A failure that does not depend on the call's arguments returns its sentinel error as it is, not wrapped with the operation and the name: a send with no mailer configured returns `mail.ErrNoMailer`, not `&mail.SendError{Op: "send", To: address, Err: ErrNoMailer}` through a helper.
-- [4] A package's error types are collected in one file, `err.go`, not each in a file named after it, even when each has methods of its own: `quotaError` and `timeoutError`, each with its `Error` method, are in `err.go`, not in `quotaerror.go` and `timeouterror.go`.
+- [4] Constants that describe one encoding are declared together in one `const` block, beside the type they encode, even when another file is where one of them gets used: `compressedBit` sits with `lengthBitCount`, `lengthMask` and `versionMask` in `header.go`, not alone in `reader.go`.
+- [1] Opposes the rule above: a file declaring a format's data types holds those declarations alone; the code that reads and writes the format, with the constants of its layout, goes in a file of its own: the catalogue's record types are in `records.go`, and `ReadCatalogue` with `recordAlignment` and the `catalogueMagic` bytes in `cataloguefile.go`.
 - [2] A part that stands on its own, working on plain values and needing nothing else of its package, is a subpackage: the site's Markdown renderer works on text over an `fs.FS`, so it is `site/markdown`, `markdown.Render`, which a tool with no server imports, not a function beside the server.
-- [2] A type's name says what it is on its own, not leaning on its package's name to say it: a ring queue is `RingQueue`, not `Queue` in a package `ring`.
+- [4] A type's name says what it is on its own, not leaning on its package's name to say it: a ring queue is `RingQueue`, not `Queue` in a package `ring`.
 - [2] A part implemented in a single file gets no package of its own, even when it stands on its own as the subpackage rule above describes: it goes beside parts of the same kind, in a package with a meaningful name, of which `common` is one choice, not the rule. The ring queue is `common.RingQueue`, not a package `ringqueue`.
 - [1] When parts of one kind need nothing of their package but a base type, that type moves down to a shared package so the parts can have a package of their own, instead of the import cycle keeping them where they are: the money types `Currency` and `TaxRate` needed only `Precision` of `billing`, so `Precision` went to `common` and the money types to `billing/money`.
 - [3] A field holding one value drawn from a bitmask keeps the `<Name>Flags` type, not an enum or an alias of its own, even though it is never more than one flag: a delivery's channel is `Delivery.Channel NotifyFlags`, holding `NotifyFlagEmail` or `NotifyFlagSMS`, as a subscription's `Channels` does, not a `NotifyChannel` beside them.

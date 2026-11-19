@@ -7,6 +7,7 @@
 - A name says what the thing is, holds or counts, not how it is built or a bare word near it: `nextInvoiceNumber`, `idleWorkers`, `pendingRefundCount`, `priceTable`, not `next`, `idle`, `pending`, `chunks`.
 - A function or method name starts with a verb, and names what it acts on when more than one thing could take the same verb: `GrantEditAccess`, not `Editable`. A getter is the exception, named for what it answers: `Total()`, `Line(number)`.
 - A new name doesn't reuse a term the project already gives another meaning: the scheduler's list of waiting jobs is a `Backlog`, not a `Queue`, which names the message queue.
+- A type for one kind among several of the same thing carries that thing's noun, and a term a spec hands over is checked against what else the project calls by it: the warehouse's return shipment is `ReturnShipment`, beside `OutboundShipment`, not `Return`, which already names a customer's return request.
 - A new method takes its name from its neighbours in the same API, not from another library's term: `SetFontSize` beside `SetFont` and `SetFontColor`, not `ScaleText` after another toolkit's `tk_scale_text`.
 - A conversion is no getter: a function that builds one type's value from another's starts with a verb, `makeShippingLabel`, not `shippingLabel`, and neighbours that break a rule set no precedent for new code.
 - A name a spec or design sketch gives still follows the naming rules when it is built: a function that only makes a scheduled job is `billing.MakeNightlyJob`, a constructor, not the sketch's `billing.Run`, which runs nothing.
@@ -33,4 +34,3 @@
 - [1] Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later.
 - [2] Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line.
 - [1] An exclusion covers only the kind of thing the user named; when it lands on a list that mixes kinds, split the list and say back which part goes: "no metrics in v1" for a crash report's fields moved out the CPU and memory figures, not the build number or the stack trace.
-- [3] A type for one kind among several of the same thing carries that thing's noun, and a term a spec hands over is checked against what else the project calls by it: the warehouse's return shipment is `ReturnShipment`, beside `OutboundShipment`, not `Return`, which already names a customer's return request.

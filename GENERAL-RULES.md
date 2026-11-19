@@ -10,7 +10,7 @@
 - A new method takes its name from its neighbours in the same API, not from another library's term: `SetFontSize` beside `SetFont` and `SetFontColor`, not `ScaleText` after another toolkit's `tk_scale_text`.
 - A conversion is no getter: a function that builds one type's value from another's starts with a verb, `makeShippingLabel`, not `shippingLabel`, and neighbours that break a rule set no precedent for new code.
 - A name a spec or design sketch gives still follows the naming rules when it is built: a function that only makes a scheduled job is `billing.MakeNightlyJob`, a constructor, not the sketch's `billing.Run`, which runs nothing.
-- A name is understood from the code alone, without reading the glossary or the name's own comment: a glossary entry defines a term, and a comment says more about a thing, but neither excuses a name that needs one. A parcel's per-label data in a label printer's buffer is `LabelData`, not a `Slip` the glossary explains, and each courier's queue of parcels is a `parcelQueue`, not a `chute` whose comment says it is one.
+- A name is understood from the code alone, in the project's own words, without reading the glossary or the name's own comment: a glossary entry defines a term, and a comment says more about a thing, but neither excuses a name that needs one, such as a metaphor the reader has to decode. A parcel's per-label data in a label printer's buffer is `LabelData`, not a `Slip` the glossary explains, and each courier's queue of parcels is a `parcelQueue`, not a `chute` whose comment says it is one.
 
 ## Code
 
@@ -26,11 +26,11 @@
 - A pull request stacked on another not yet merged is opened as a draft, and leaves draft once its base merges.
 - A ticket's size budget, such as about 200 changed lines, is a recommendation: a feature that needs more may take more, but tickets are kept as granular as the work allows.
 - A context's glossary is written while its design is mapped, even before its module exists: create `<module>/CONTEXT.md` and its line in `CONTEXT-MAP.md` as soon as a term is settled.
+- A check the user performs by hand is given as numbered steps, each saying what to do and what should appear, and whatever it opens waits long enough to read them first: "1. Open the settings page. 2. Switch the language to French: the File menu should read `Fichier`", with the page opening 20 seconds later.
 
 ## Potential rules
 
 - [1] Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later.
 - [2] Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line.
 - [1] An exclusion covers only the kind of thing the user named; when it lands on a list that mixes kinds, split the list and say back which part goes: "no metrics in v1" for a crash report's fields moved out the CPU and memory figures, not the build number or the stack trace.
-- [2] A type for one kind among several of the same thing carries that thing's noun, and a term a spec hands over is checked against what else the project calls by it: the warehouse's return shipment is `ReturnShipment`, beside `OutboundShipment`, not `Return`, which already names a customer's return request.
-- [4] A check the user performs by hand is given as numbered steps, each saying what to do and what should appear, and whatever it opens waits long enough to read them first: "1. Open the settings page. 2. Switch the language to French: the File menu should read `Fichier`", with the page opening 20 seconds later.
+- [3] A type for one kind among several of the same thing carries that thing's noun, and a term a spec hands over is checked against what else the project calls by it: the warehouse's return shipment is `ReturnShipment`, beside `OutboundShipment`, not `Return`, which already names a customer's return request.

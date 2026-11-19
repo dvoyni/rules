@@ -10,6 +10,7 @@
 - A new method takes its name from its neighbours in the same API, not from another library's term: `SetFontSize` beside `SetFont` and `SetFontColor`, not `ScaleText` after another toolkit's `tk_scale_text`.
 - A conversion is no getter: a function that builds one type's value from another's starts with a verb, `makeShippingLabel`, not `shippingLabel`, and neighbours that break a rule set no precedent for new code.
 - A name a spec or design sketch gives still follows the naming rules when it is built: a function that only makes a scheduled job is `billing.MakeNightlyJob`, a constructor, not the sketch's `billing.Run`, which runs nothing.
+- A name is understood from the code alone, without reading the glossary or the name's own comment: a glossary entry defines a term, and a comment says more about a thing, but neither excuses a name that needs one. A parcel's per-label data in a label printer's buffer is `LabelData`, not a `Slip` the glossary explains, and each courier's queue of parcels is a `parcelQueue`, not a `chute` whose comment says it is one.
 
 ## Code
 

@@ -33,4 +33,5 @@
 
 - [1] Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later.
 - [4] Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line.
+- [1] A type that is one thing whose own name is plural, not a collection of the parts its name counts, keeps that name, which narrows "Type names are singular": a conference's printed `Proceedings`, one bound volume, stays `Proceedings`, while a list of its talks is a `talkList`, not `talks`.
 - [1] An exclusion covers only the kind of thing the user named; when it lands on a list that mixes kinds, split the list and say back which part goes: "no metrics in v1" for a crash report's fields moved out the CPU and memory figures, not the build number or the stack trace.

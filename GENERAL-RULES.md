@@ -4,6 +4,7 @@
 
 - Identifiers are full words: `shippingAddress`, not `shipAddr`. A standard short form used widely across programming counts as a word: `ID`, `Ack`, `Cfg`, `Ctor`, `Dtor` and the like, as in `orderID` and `AckDelivery`.
 - A type name is not a bare plural: `catalog`, not `products`. A collection may end in a plural noun after a qualifier, read as a compact list: `ReturnedBooks` for `ReturnedBookList`, not `Books`.
+- A type that is one thing whose own name is plural, not a collection of the parts its name counts, keeps that name, which narrows the bare-plural rule above: a conference's printed `Proceedings`, one bound volume, stays `Proceedings`, while a list of its talks is a `talkList`, not `talks`.
 - A name says what the thing is, holds or counts, not how it is built or a bare word near it: `nextInvoiceNumber`, `idleWorkers`, `pendingRefundCount`, `priceTable`, not `next`, `idle`, `pending`, `chunks`.
 - A function or method name starts with a verb, and names what it acts on when more than one thing could take the same verb: `GrantEditAccess`, not `Editable`. A getter is the exception, named for what it answers: `Total()`, `Line(number)`.
 - A new name doesn't reuse a term the project already gives another meaning: the scheduler's list of waiting jobs is a `Backlog`, not a `Queue`, which names the message queue.
@@ -33,6 +34,5 @@
 
 - [1] Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later.
 - [4] Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line.
-- [1] A type that is one thing whose own name is plural, not a collection of the parts its name counts, keeps that name, which narrows "Type names are singular": a conference's printed `Proceedings`, one bound volume, stays `Proceedings`, while a list of its talks is a `talkList`, not `talks`.
 - [4] A name the user gives is built as given, even where another reads better; a doubt about it goes in the reply, not into the code: asked to call the courier's queue `PendingParcels`, the type is `PendingParcels`, with a note that it holds more than parcels.
 - [1] An exclusion covers only the kind of thing the user named; when it lands on a list that mixes kinds, split the list and say back which part goes: "no metrics in v1" for a crash report's fields moved out the CPU and memory figures, not the build number or the stack trace.

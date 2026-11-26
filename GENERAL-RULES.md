@@ -13,6 +13,7 @@
 - A conversion is no getter: a function that builds one type's value from another's starts with a verb, `makeShippingLabel`, not `shippingLabel`, and neighbours that break a rule set no precedent for new code.
 - A name a spec or design sketch gives still follows the naming rules when it is built: a function that only makes a scheduled job is `billing.MakeNightlyJob`, a constructor, not the sketch's `billing.Run`, which runs nothing.
 - A name is understood from the code alone, in the project's own words, without reading the glossary or the name's own comment: a glossary entry defines a term, and a comment says more about a thing, but neither excuses a name that needs one, such as a metaphor the reader has to decode. A parcel's per-label data in a label printer's buffer is `LabelData`, not a `Slip` the glossary explains, and each courier's queue of parcels is a `parcelQueue`, not a `chute` whose comment says it is one.
+- A name the user gives is built as given, even where another reads better; a doubt about it goes in the reply, not into the code: asked to call the courier's queue `PendingParcels`, the type is `PendingParcels`, with a note that it holds more than parcels.
 
 ## Code
 
@@ -34,5 +35,4 @@
 
 - [1] Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later.
 - [4] Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line.
-- [4] A name the user gives is built as given, even where another reads better; a doubt about it goes in the reply, not into the code: asked to call the courier's queue `PendingParcels`, the type is `PendingParcels`, with a note that it holds more than parcels.
 - [1] An exclusion covers only the kind of thing the user named; when it lands on a list that mixes kinds, split the list and say back which part goes: "no metrics in v1" for a crash report's fields moved out the CPU and memory figures, not the build number or the stack trace.

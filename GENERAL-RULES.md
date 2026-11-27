@@ -26,6 +26,7 @@
 - Implement exactly what was asked. Anything beyond it is offered, not done.
 - A question gets a direct answer. Change code only when asked to.
 - A pull request is opened only after the user has approved its text: title and description, shown in full first.
+- Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line.
 - A pull request stacked on another not yet merged is opened as a draft, and leaves draft once its base merges.
 - A ticket's size budget, such as about 200 changed lines, is a recommendation: a feature that needs more may take more, but tickets are kept as granular as the work allows.
 - A context's glossary is written while its design is mapped, even before its module exists: create `<module>/CONTEXT.md` and its line in `CONTEXT-MAP.md` as soon as a term is settled.
@@ -34,5 +35,4 @@
 ## Potential rules
 
 - [1] Work ruled out of an effort's scope is detached from it and left open, not closed: unparent the ticket from the map and keep it for later.
-- [4] Commit messages and pull request descriptions carry no Claude attribution: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line.
 - [1] An exclusion covers only the kind of thing the user named; when it lands on a list that mixes kinds, split the list and say back which part goes: "no metrics in v1" for a crash report's fields moved out the CPU and memory figures, not the build number or the stack trace.
